@@ -1,0 +1,156 @@
+<!-- 
+    design taken from https://www.scaler.com/topics/chat-interface-project-css/
+-->
+
+<html>
+  <head>
+    <title>IM-D-AI-Career-Coach</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Import this CDN to use icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+  </head>
+
+  <body>
+    <!-- Main container -->
+    <div class="container">
+      <!-- msg-header section starts -->
+      <div class="msg-header">
+        <div class="container1">
+          <img src="codi.webp" class="msgimg" />
+          <div class="active">
+            <p>Coach Codi</p>
+          </div>
+        </div>
+      </div>
+      <!-- msg-header section ends -->
+
+      <!-- Chat inbox  -->
+      <div class="chat-page">
+        <div class="msg-inbox">
+          <div class="chats">
+            <!-- Message container -->
+            <div class="msg-page">
+              
+              <!-- Incoming messages -->
+<!--
+              <div class="received-chats">
+                <div class="received-chats-img">
+                  <img src="Cara1.png" />
+                </div>
+                <div class="received-msg">
+                  <div class="received-msg-inbox">
+                    <p>
+                      Hi !! I'd like to find out how I can be a better public officer. I have lots of ideas, but not really sure how all these will affect my career
+                    </p>
+                    <span class="time">18:06 PM | July 24</span>
+                  </div>
+                </div>
+              </div>
+            -->
+
+              <!-- Outgoing messages 
+              <div class="outgoing-chats">
+                <div class="outgoing-chats-img">
+                  <img src="codi.png"/>
+                </div>
+                <div class="outgoing-msg">
+                  <div class="outgoing-chats-msg">
+                    <p class="multi-msg">
+                      Hi cara, not to worry. I'm here to help 
+                      you wade through the sea of HR frameworks
+                      and challenging conversations you may need
+                      to have with colleagues and bosses.
+                    </p>
+                    <p class="multi-msg">
+                      don't worry, I'll be here for you. 
+                      (and because I'm AI, I never sleep)
+                    </p>
+
+                    <span class="time">18:30 PM | July 24</span>
+                  </div>
+                </div>
+              </div>
+              <div class="received-chats">
+                <div class="received-chats-img">
+                  <img src="Cara1.png" />
+                </div>
+                <div class="received-msg">
+                  <div class="received-msg-inbox">
+                    <p class="single-msg">
+                      thanks Codi.
+                      what would I do without you?
+                      What shoudl I do next? give you my CV? 
+                      It's pretty short. Main skills are 
+                      scavenging for food, sleeping and 
+                      acting cute.
+                    </p>
+                    <span class="time">18:31 PM | July 24</span>
+                  </div>
+                </div>
+              </div>
+              <div class="outgoing-chats">
+                <div class="outgoing-chats-img">
+                  <img src="codi.png" />
+                </div>
+                <div class="outgoing-msg">
+                  <div class="outgoing-chats-msg">
+                    <p>
+                      That's fine Cara. I believe in 
+                      strengths-based competency devt.
+                      Let's build off the one on sleeping.
+                      how do you feel now?
+                    </p>
+
+                    <span class="time">18:34 PM | July 24</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="received-chats">
+                <div class="received-chats-img">
+                  <img src="Cara1.png" />
+                </div>
+                <div class="received-msg">
+                <div class="received-msg-inbox">
+                  <p class="single-msg">
+                    zzz.....
+                  </p>
+                  <span class="time">18:39 PM | July 24</span>
+                </div>
+                </div>
+              </div>
+            </div>
+          -->
+          </div>
+        
+          <!-- msg-bottom section -->
+         
+          <div class="msg-bottom">
+            <div class="input-group" >
+              <input
+                id="website-input"
+                name = "website-input"
+                type="text"
+                class="form-control"
+                placeholder="Write message..."
+              />
+
+              <span class="input-group-text send-icon">
+                
+                <button onclick='sendAsk(document.getElementById("website-input").value)'>
+                  <i class="bi bi-send" ></i>
+                  SEND<button> 
+
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="coachc.js"</script></script>

@@ -146,6 +146,15 @@
                   <!--put text here if you want more than the icon-->
                 </button> 
 
+                <script>
+                  const messageEntry = document.getElementById("website-input");
+                  messageEntry.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter'){
+                      console.log("enter key pressed!");
+                      sendAsk(document.getElementById("website-input").value);
+                    }
+                  </script>
+                  
               </span>
             </div>
           </div>

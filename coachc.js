@@ -7,18 +7,20 @@ const intro = "Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> 
 sendAns(intro);
 sendAns("Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'")
 
-// test code below which worked-----
-//queryG({"inputs": "Can you please let us know more details about Singapore"}).then((response) => {
-//	console.log(JSON.stringify(response));
-//});
-//-------------------
 
 
 function sendAsk(text = '') {
-  const promptContext = "Context: Your name is CODI. You work in Singapore's Info-comm Media Development Authority. You are a career coach for public officers. You are Singaporean and speak with a Singaporean accent and use Singapore slang. You are to respond to the text after the word 'Question:' with wit, humour and professionalism. preface your reply with the characters '|reply|'. Question: ";
+  
+  const promptContext = "Context: Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. You will respond to the text after the word 'QQQuestion:' with dry wit and professionalism. Keep your reply length to 200 words or less. The reply should be complete and self-contained. Preface your reply with the characters '|reply|' only once. QQQuestion: ";
 
   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
 
+  if (text == "exit"){
+    sendAns("goodbye!");
+    return;
+  }
+
+  
   console.log("calling sendAns using <"+ text+ ">");
   
   queryL3({"inputs" : promptContext+" " +text}).then((response) => 
@@ -93,7 +95,7 @@ function createOutChat(text = '') {
 
 
   async function queryL3(data) {
-    console.log("queryG called");
+    console.log("queryL3 called");
     const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
       {

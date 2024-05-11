@@ -2,6 +2,10 @@
 //var answer = "";
 //var buffer = "";
 
+//const require = createRequire(import.meta.url)
+//require('dotenv').config()
+//console.log(L3KEY);
+
 const intro = "Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me]"
 
 sendAns(intro);
@@ -96,11 +100,17 @@ function createOutChat(text = '') {
 
   async function queryL3(data) {
     console.log("queryL3 called");
+
+    //terminal: $ npm install @dotenvx/dotenvx -g
+    //need to put in terminal: npm install dotenv -- save 
+   //var hfKey = HF_KEY;
+   // console.log("env obtained: "+hfKey);
+var hfKey = "Bearer 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";
     const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
       {
         headers: { 
-          Authorization: "Bearer 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",
+          Authorization: hfKey,
           "Content-Type": "application/json",
         },
         method: "POST",

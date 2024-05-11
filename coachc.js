@@ -2,9 +2,10 @@ var ask = "";
 var answer = "";
 var buffer = "";
 
-const promptContext = "";
+const intro = "Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me]"
 
-sendAns("Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me]");
+sendAns(intro);
+sendAns("Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'")
 
 // test code below which worked-----
 //queryG({"inputs": "Can you please let us know more details about Singapore"}).then((response) => {
@@ -14,15 +15,16 @@ sendAns("Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am c
 
 
 function sendAsk(text = '') {
-  
+  const promptContext = "Context: Your name is CODI. You work in Singapore's Info-comm Media Development Authority. You are a career coach for public officers. You are to respond to the text after the word 'Question:' with wit, humour and professionalism. preface your reply with the characters '|reply|'. Question: ";
+
   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
 
   console.log("calling sendAns using <"+ text+ ">");
   
-  queryL3({"inputs" : text}).then((response) => 
+  queryL3({"inputs" : promptContext+" " +text}).then((response) => 
     {
-    console.log(JSON.stringify(response))
-    sendAns(response[0].generated_text)
+    console.log(JSON.stringify(response));
+    sendAns(response[0].generated_text.split("|reply|")[2])
     }
   )
 
@@ -32,7 +34,7 @@ function sendAsk(text = '') {
 
 
 }
-function sendAns(text = ''){
+function sendAns(text = '' ){
   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createOutChat(text));
 
 }

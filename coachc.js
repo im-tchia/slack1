@@ -2,7 +2,9 @@ var ask = "";
 var answer = "";
 var buffer = "";
 
-sendAns("Hi my name is Codi, how can I help you?");
+const promptContext = "";
+
+sendAns("Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me]");
 
 // test code below which worked-----
 //queryG({"inputs": "Can you please let us know more details about Singapore"}).then((response) => {
@@ -17,7 +19,7 @@ function sendAsk(text = '') {
 
   console.log("calling sendAns using <"+ text+ ">");
   
-  queryG({"inputs" : text}).then((response) => 
+  queryL3({"inputs" : text}).then((response) => 
     {
     console.log(JSON.stringify(response))
     sendAns(response[0].generated_text)
@@ -75,7 +77,7 @@ function createOutChat(text = '') {
   };
 
 
-  async function queryG(data) {
+  async function queryL3(data) {
     console.log("queryG called");
     const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
@@ -94,24 +96,8 @@ function createOutChat(text = '') {
     return result;
   }
  
-  async function queryH(data) {
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
-      {
-        headers: { 
-          "Content-Type" : "application/json",
-          Authorization: "xxxxxxxx" },
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
-    const result = await response.json();
-    return result;
-    //return JSON.stringify(result);
-
-   // query({"inputs": "Can you please let us know more details about your "}).then((response) => {console.log(JSON.stringify(response));
-  }
-  async function queryP(data) {
+  
+  async function queryP3(data) {
     const response = await fetch(
       "https://api-inference.huggingface.co/models/microsoft/Phi-3-mini-128k-instruct",
       {
@@ -124,4 +110,19 @@ function createOutChat(text = '') {
     return result;
   }
   
-  
+//import fetch from "node-fetch";
+async function queryRBS2(data) {
+    const response = await fetch(
+        "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2",
+        {
+            headers: { Authorization: `Bearer ${API_TOKEN}` },
+            method: "POST",
+            body: JSON.stringify(data),
+        }
+    );
+    const result = await response.json();
+    return result;
+}
+//query({inputs:{question:"What is my name?",context:"My name is Clara and I live in Berkeley."}}).then((response) => {
+//    console.log(JSON.stringify(response));
+//});

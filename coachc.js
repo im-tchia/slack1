@@ -1,6 +1,6 @@
-var ask = "";
-var answer = "";
-var buffer = "";
+//var ask = "";
+//var answer = "";
+//var buffer = "";
 
 const intro = "Hi my name is Codi, how can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me]"
 
@@ -41,6 +41,12 @@ function sendAns(text = '' ){
 
 
 function createInChat(text = '') {
+  var event = new Date();
+  var eDate = Date.toString()
+  //var eTime = Date.toTimeString();
+  var timestamp = event;
+  //var timestamp = eTime + " | " + eDate;
+
   return`
   <div class="received-chats">
   <div class="recevied-chats-img">
@@ -52,7 +58,9 @@ function createInChat(text = '') {
       ${text}
       </p>
 
-      <span class="time">18:34 PM | July 24</span>
+      <span class="time">
+      ${timestamp}
+      </span>
     </div>
   </div>
 </div>
@@ -60,7 +68,9 @@ function createInChat(text = '') {
 };
 
 function createOutChat(text = '') {
-    return`
+  var event = new Date();
+  var timestamp = event  
+  return`
     <div class="outgoing-chats">
     <div class="outgoing-chats-img">
       <img src="codi.png" />
@@ -71,11 +81,14 @@ function createOutChat(text = '') {
         ${text}
         </p>
 
-        <span class="time">18:34 PM | July 24</span>
+        <span class="time">${timestamp}</span>
       </div>
     </div>
   </div>
     `;
+
+
+    //extracted: <span class="time">18:34 PM | July 24</span>
   };
 
 

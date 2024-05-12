@@ -147,9 +147,12 @@
                 </button> 
 
                 <script>
+
+// https://stackoverflow.com/questions/7060750/detect-the-enter-key-in-a-text-input-field
+
                   const messageEntry = document.getElementById("website-input");
-                  messageEntry.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter'){
+                  messageEntry.addEventListener("keydown", function(event) {
+                    if (event.key === "Enter"){
                       console.log("enter key pressed!");
                       sendAsk(document.getElementById("website-input").value);
                     }

@@ -148,10 +148,14 @@
 
                 <script>
 
-// https://stackoverflow.com/questions/7060750/detect-the-enter-key-in-a-text-input-field
+                  // https://stackoverflow.com/questions/7060750/detect-the-enter-key-in-a-text-input-field
 
+                  //const messageEntry = document.getElementsByClassName("form-control");
                   const messageEntry = document.getElementById("website-input");
-                  messageEntry.addEventListener("keydown", function(event) {
+                  
+                  //const messageEntry = document;
+                  
+                  messageEntry.addEventListener("keypress", function(event) {
                     if (event.key === "Enter"){
                       console.log("enter key pressed!");
                       sendAsk(document.getElementById("website-input").value);
@@ -164,6 +168,6 @@
         </div>
       </div>
     </div>
+    <script src="coachc.js"></script>
   </body>
 </html>
-<script src="coachc.js"</script></script>

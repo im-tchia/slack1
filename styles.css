@@ -73,7 +73,7 @@ img {
 
 .msg-page {
     max-height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* Styling the msg-bottom container */

@@ -33,6 +33,20 @@ runningPrompt = runningPrompt + promptContext;
 sendAns(intro1);
 sendAns(intro2);
 
+/// below is to enable enter key to trigger send ///
+
+      // https://stackoverflow.com/questions/7060750/detect-the-enter-key-in-a-text-input-field
+
+      //const messageEntry = document.getElementsByClassName("form-control");
+     
+const messageEntry = document.getElementById("website-input");
+messageEntry.addEventListener("keypress", function(event) {
+  if (event.key === "Enter"){
+    console.log("enter key pressed!");
+    sendAsk(document.getElementById("website-input").value);
+  }
+});
+
 /////////////// FUNCTIONS BELOW HERE /////////////
 
 function sendAns(text = '' ){

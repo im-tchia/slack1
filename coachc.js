@@ -152,8 +152,9 @@ function createOutChat(text = '') {
     //need to put in terminal: npm install dotenv -- save 
    //var hfKey = HF_KEY;
    // console.log("env obtained: "+hfKey);
-    var hfKey = "Bearer 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";
-    const response = await fetch(
+   var hfKey = "Bearer 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";
+  //  var hfKey = process.env(L3KEY); 
+   const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
       {
         headers: { 

@@ -6,6 +6,8 @@
 //const require = createRequire(import.meta.url)
 //require('dotenv').config()
 //console.log(L3KEY);
+// global variable to indicate when to close session
+let closeSession = false;
 
 let promptHeaderSystem = "<|start_header_id|>system<|end_header_id|>";
 let promptHeaderUser = "<|start_header_id|>user<|end_header_id|>";
@@ -15,7 +17,7 @@ let promptHeaderAsst = "<|start_header_id|>assistant<|end_header_id|>";
 ///// these are used to track the conversation /////
 let runningPrompt = "";
 let promptContext =
-  " <|begin_of_text|><|start_header_id|>system<|end_header_id|> Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. Some slang can be found at these sites: 'https://www.timeout.com/singapore/things-to-do/common-singlish-words-you-need-to-know-to-speak-like-a-local' and 'https://mothership.sg/2014/06/17-singlish-words-that-offer-so-much-more-than-english-ones/'. You will respond to the user's query with dry wit and professionalism. Unless the user says otherwise their name is 'Abang/Kakak' which is malay for big brother/big sister. do NOT append the word 'assistant' to your responses. <|eot_id|>";
+  " <|begin_of_text|><|start_header_id|>system<|end_header_id|> Your name is CODI. You are a volunteer career coach in Singapore's Info-comm Media Development Authority (IMDA). You do not speak for or represent IMDA since you are a volunteer. You are Singaporean and use Singapore slang. Some slang can be found at these sites: 'https://www.timeout.com/singapore/things-to-do/common-singlish-words-you-need-to-know-to-speak-like-a-local' and 'https://mothership.sg/2014/06/17-singlish-words-that-offer-so-much-more-than-english-ones/'. You will respond to the user's query with dry wit and professionalism. Unless the user says otherwise their name is 'Abang/Kakak' which is malay for big brother/big sister. You will NOT append the word 'assistant' to your responses. <|eot_id|>";
 
 promptContext =
   promptContext +
@@ -35,15 +37,16 @@ promptContext =
   "You can also refer to the ICT skills framework at these sites when answering questions about the types of skills required: 'https://www.skillsfuture.gov.sg/skills-framework/ict' and 'https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/skills-framework-for-infocomm-technology-sfw-for-ict'" +
   promptEOT;
 
-let disclaimer = "Note: I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me. My max context length is 8k tokens- you can ask me 'how many tokens'\n\n <br><br>" + 
-"Disclaimer: This web app is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.";
+let disclaimer1 = "Note: I am an experimental chatbot, using Meta Llama 3 8B instruct via Hugging Face Inference API. Bear this in mind when sending info or data to me. My responses may or may not be correct, though I hope they are useful, or at least entertaining. My max context length is 8k tokens- you can ask me 'how many tokens'\n\n <br><br>" 
+
+let disclaimer2 = "Disclaimer: This web app is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.<br>";
 
  //old intro prompt//
   // const promptContext = "Context: Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. You will respond to the text after the word 'QQQuestion:' with dry wit and professionalism. Keep your reply length to 200 words or less. The reply should be complete and self-contained. Preface your reply with the characters '|reply|' only once. QQQuestion: ";
 
 ///////// This just initiates the conversation ///////
 var intro1 = "Hi my name is Coach Codi, a career coach. How can I help you?";
-var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :) ";
+var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :). Type 'bye' or 'exit' at any time to close this session. ";
 
 runningPrompt = runningPrompt + promptContext;
 
@@ -51,7 +54,7 @@ runningPrompt = runningPrompt + promptContext;
 runningPrompt =
   runningPrompt +
   promptHeaderAsst +
-  disclaimer +
+  disclaimer1 + disclaimer2 +
   promptEOT +
   promptHeaderAsst +
   intro1 +
@@ -60,7 +63,8 @@ runningPrompt =
   intro2 +
   promptEOT;
 
-sendAns(disclaimer);
+sendAns(disclaimer1);
+sendAns(disclaimer2);
 sendAns(intro1);
 sendAns(intro2);
 
@@ -72,7 +76,7 @@ sendAns(intro2);
      
 const messageEntry = document.getElementById("website-input");
 messageEntry.addEventListener("keypress", function(event) {
-  if (event.key === "Enter"){
+  if (event.key === "Enter" && !closeSession){
     console.log("enter key pressed!");
     sendAsk(document.getElementById("website-input").value);
   }
@@ -90,15 +94,16 @@ function sendAns(text = '' ){
 }
 
 function sendAsk(text = '') {
-  
+  console.log("ask = "+ text);
   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createOutChat(text));
 
     //scroll to bottom of .msg-page id=scrollMsgPg
     document.getElementById("scrollMsgPg").scrollTop = document.getElementById("scrollMsgPg").scrollHeight;
 
 
-  if (text == "exit"){
-    sendAns("goodbye!");
+  if (text.toLowerCase() == "exit" || text.toLowerCase() == "bye"){
+    closeSession = true;
+    sendAns("goodbye! pls refresh the browser to start a new session");
     return;
   }
 
@@ -109,8 +114,9 @@ function sendAsk(text = '') {
   console.log("sending this prompt: " +runningPrompt);
   queryL3({"inputs" : runningPrompt}).then((response) => 
     {
-    console.log(JSON.stringify(response));
+    console.log("response = " + JSON.stringify(response));
     var rawReply = response[0].generated_text;
+    console.log("answer = "+rawReply.split(runningPrompt)[1]);
     sendAns(rawReply.split(runningPrompt)[1]);
     //sendAns(response[0].generated_text.split("|reply|")[2])
     //sendAns(response[0].generated_text.substring(len(text),len(response[0].generated_text)));
@@ -199,7 +205,7 @@ function createOutChat(text = '') {
     );
     const result = await response.json();
     
-    console.log("queryG result: " + result);
+    //console.log("queryL3 result: " + result);
     return result;
   }
  

@@ -152,6 +152,9 @@ function createOutChat(text = '') {
     //need to put in terminal: npm install dotenv -- save 
    //var hfKey = HF_KEY;
    // console.log("env obtained: "+hfKey);
+
+   //HF_L3_KEY as this in the env file
+   
    var hfKey = "Bearer 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";
   //  var hfKey = process.env(L3KEY); 
    const response = await fetch(

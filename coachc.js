@@ -150,10 +150,11 @@ function createOutChat(text = '') {
     console.log("queryL3 called");
     //terminal: $ npm install @dotenvx/dotenvx -g
     //need to put in terminal: npm install dotenv -- save 
-   //var hfKey = HF_KEY;
+   //var hfKey = HF_L3_KEY;
    // console.log("env obtained: "+hfKey);
-   var hfKey = "Bearer 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";
-  //  var hfKey = process.env(L3KEY); 
+   
+   //var hfKey = "Bearer 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";
+   var hfKey = process.env(HF_L3_KEY); 
    const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
       {

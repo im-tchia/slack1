@@ -153,8 +153,8 @@ function createOutChat(text = '') {
    //var hfKey = HF_L3_KEY;
    // console.log("env obtained: "+hfKey);
    
-   //var hfKey = "Bearer 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";
-   var hfKey = process.env(HF_L3_KEY); 
+   var hfKey = "Bearer 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";
+   //var hfKey = process.env(HF_L3_KEY); 
    const response = await fetch(
       "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
       {

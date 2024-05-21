@@ -50,7 +50,7 @@ messageEntry.addEventListener("keypress", function(event) {
 /////////////// FUNCTIONS BELOW HERE /////////////
 
 function sendAns(text = '' ){
-  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createOutChat(text));
+  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
 
   runningPrompt = runningPrompt + promptHeaderAsst + text + promptEOT;
 
@@ -60,7 +60,7 @@ function sendAns(text = '' ){
 
 function sendAsk(text = '') {
   
-  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
+  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createOutChat(text));
 
     //scroll to bottom of .msg-page id=scrollMsgPg
     document.getElementById("scrollMsgPg").scrollTop = document.getElementById("scrollMsgPg").scrollHeight;
@@ -104,7 +104,7 @@ function createInChat(text = '') {
   return`
   <div class="received-chats">
   <div class="recevied-chats-img">
-    <img src="Cara1.png" />
+    <img src="codi.png" />
   </div>
   <div class="received-msg">
     <div class="received-msg-inbox">
@@ -127,7 +127,7 @@ function createOutChat(text = '') {
   return`
     <div class="outgoing-chats">
     <div class="outgoing-chats-img">
-      <img src="codi.png" />
+      <img src="Cara1.png" />
     </div>
     <div class="outgoing-msg">
       <div class="outgoing-chats-msg">

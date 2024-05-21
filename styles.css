@@ -165,7 +165,19 @@ received-chats-img {
    
 }
 .received-msg-inbox {
-    width: 57%;
+    width: 100%;
+}
+
+.received-msg-inbox p {
+    /* background: #efefef none repeat scroll 0 0;
+    border-radius: 10px;
+    color: #646464;
+    font-size: 14px;
+    margin-left: 1rem;
+    padding: 1rem;
+    width: 100%;
+    box-shadow: rgb(0 0 0 / 25%) 0px 5px 5px 2px; */
+
     background-color: #3a12ff;
     background-image: linear-gradient(45deg, #ee087f 0%, #DD2A7B 25%, #9858ac 50%, #8134AF 75%, #515BD4 100%);
     color: #fff;
@@ -173,20 +185,9 @@ received-chats-img {
     font-size: 14px;
     color: #fff;
     padding: 5px 10px 5px 12px;
-    /* width: 100%; */
+    width: 57%;
     padding: 1rem;
     box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px;
-}
-
-.received-msg-inbox p {
-    background: #efefef none repeat scroll 0 0;
-    border-radius: 10px;
-    color: #646464;
-    font-size: 14px;
-    margin-left: 1rem;
-    padding: 1rem;
-    width: 100%;
-    box-shadow: rgb(0 0 0 / 25%) 0px 5px 5px 2px;
 }
     p {
     overflow-wrap: break-word;

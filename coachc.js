@@ -14,22 +14,53 @@ let promptHeaderAsst = "<|start_header_id|>assistant<|end_header_id|>";
 
 ///// these are used to track the conversation /////
 let runningPrompt = "";
-let promptContext = " <|begin_of_text|><|start_header_id|>system<|end_header_id|> Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. Some slang can be found at these sites: 'https://www.timeout.com/singapore/things-to-do/common-singlish-words-you-need-to-know-to-speak-like-a-local' and 'https://mothership.sg/2014/06/17-singlish-words-that-offer-so-much-more-than-english-ones/'. You will respond to the user's query with dry wit and professionalism. Unless the user says otherwise their name is 'Abang/Kakak' which is malay for big brother/big sister. do NOT append the word 'assistant' to your responses. <|eot_id|>";
+let promptContext =
+  " <|begin_of_text|><|start_header_id|>system<|end_header_id|> Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. Some slang can be found at these sites: 'https://www.timeout.com/singapore/things-to-do/common-singlish-words-you-need-to-know-to-speak-like-a-local' and 'https://mothership.sg/2014/06/17-singlish-words-that-offer-so-much-more-than-english-ones/'. You will respond to the user's query with dry wit and professionalism. Unless the user says otherwise their name is 'Abang/Kakak' which is malay for big brother/big sister. do NOT append the word 'assistant' to your responses. <|eot_id|>";
 
-promptContext = promptContext + promptHeaderSystem + "Keep your reply length to 100 words or less. Your reply should be complete, self-contained and in complete sentences. At the end of each reply, you should state: '[XXX /8K tokens used]', where XXX is the number of tokens used so far."+ promptEOT;
+promptContext =
+  promptContext +
+  promptHeaderSystem +
+  "Keep your reply length to 100 words or less. Your reply should be complete, self-contained and in complete sentences. At the end of each reply, you should state: '[XXX /8K tokens used]', where XXX is the number of tokens used so far." +
+  promptEOT;
 
-promptContext = promptContext + promptHeaderSystem + "You may refer the user to speak with IMDA senior managment at this link: 'https://www.imda.gov.sg/about-imda/who-we-are/our-team/our-senior-management'"+ promptEOT;
+promptContext =
+  promptContext +
+  promptHeaderSystem +
+  "You may refer the user to speak with IMDA senior managment at this link: 'https://www.imda.gov.sg/about-imda/who-we-are/our-team/our-senior-management'" +
+  promptEOT;
 
-promptContext = promptContext + promptHeaderSystem + "You can also refer to the ICT skills framework at these sites when answering questions about the types of skills required: 'https://www.skillsfuture.gov.sg/skills-framework/ict' and 'https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/skills-framework-for-infocomm-technology-sfw-for-ict'"+ promptEOT;
+promptContext =
+  promptContext +
+  promptHeaderSystem +
+  "You can also refer to the ICT skills framework at these sites when answering questions about the types of skills required: 'https://www.skillsfuture.gov.sg/skills-framework/ict' and 'https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/skills-framework-for-infocomm-technology-sfw-for-ict'" +
+  promptEOT;
+
+let disclaimer = "Note: I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me. My max context length is 8k tokens- you can ask me 'how many tokens'\n\n" + 
+"Disclaimer: This web app is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.\n=================\n";
 
  //old intro prompt//
   // const promptContext = "Context: Your name is CODI. You are a career coach in Singapore's Info-comm Media Development Authority. You are Singaporean and use Singapore slang. You will respond to the text after the word 'QQQuestion:' with dry wit and professionalism. Keep your reply length to 200 words or less. The reply should be complete and self-contained. Preface your reply with the characters '|reply|' only once. QQQuestion: ";
 
 ///////// This just initiates the conversation ///////
-var intro1 = "Hi my name is Coach Codi, a career coach. How can I help you? <br><br><i>[<u>Note:</u> I am currently using Meta Llama 3 8B instruct via Hugging Face Inference API, so bear this in mind when sending info or data to me. My max context length is 8k tokens- you can ask me 'how many tokens']"
-var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :) "
+var intro1 = "Hi my name is Coach Codi, a career coach. How can I help you?";
+var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :) ";
 
 runningPrompt = runningPrompt + promptContext;
+
+//adds the two intros to the starting prompt
+runningPrompt =
+  runningPrompt +
+  promptHeaderAsst +
+  disclaimer +
+  promptEOT +
+  promptHeaderAsst +
+  intro1 +
+  promptEOT +
+  promptHeaderAsst +
+  intro2 +
+  promptEOT;
+
+sendAns(disclaimer);
 sendAns(intro1);
 sendAns(intro2);
 

@@ -56,7 +56,7 @@ img {
 }
 /* Styling the inbox */
 .chat-page {
-    padding: 0 0 50px 0;
+    padding: 0 0 10px 0;
 }
 
 .msg-inbox {
@@ -229,6 +229,21 @@ received-chats-img {
     float: right;
     margin-right: 1rem;
 }
+
+
+.footer {
+    border-radius: 10px;
+    font-size: 10px;
+    font-style: oblique;
+    color: #974e97;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    padding: 1rem;
+    /* box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px; */
+}
+
 @media only screen and (max-device-width: 850px) {
     *,
     .time {
@@ -283,3 +298,4 @@ received-chats-img {
     display: inline-block;
     font-size: 16px;
   }
+

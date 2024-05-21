@@ -75,12 +75,21 @@ sendAns(intro2);
       //const messageEntry = document.getElementsByClassName("form-control");
      
 const messageEntry = document.getElementById("website-input");
+
 messageEntry.addEventListener("keypress", function(event) {
   if (event.key === "Enter" && !closeSession){
     console.log("enter key pressed!");
     sendAsk(document.getElementById("website-input").value);
   }
 });
+
+const buttonEntry = document.getElementById("sendButton");
+buttonEntry.addEventListener("click", function(){
+    if (!closeSession) {
+      sendAsk(document.getElementById("website-input").value);
+    } 
+
+}); 
 
 /////////////// FUNCTIONS BELOW HERE /////////////
 

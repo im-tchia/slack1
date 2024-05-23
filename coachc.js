@@ -2,6 +2,11 @@
 //var answer = "";
 //var buffer = "";
 
+//const { response } = require("express");
+
+//const { configDotenv } = require("dotenv");
+//const { response } = require("express");
+
 //////couldn't get "require" to work yet////////////
 //const require = createRequire(import.meta.url)
 //require('dotenv').config()
@@ -193,29 +198,46 @@ function createOutChat(text = '') {
 
 
   async function queryL3(data) {
-    console.log("queryL3 called");
+    console.log("Frontend -queryL3 called");
+    console.log("Frontend - passing this data: " + JSON.stringify(data));
     //terminal: $ npm install @dotenvx/dotenvx -g
     //need to put in terminal: npm install dotenv -- save 
    //var hfKey = HF_L3_KEY;
    // console.log("env obtained: "+hfKey);
    
-   var hfKey = "Bearer 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";
+   //var hfKey = "Bearer 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";
    //var hfKey = process.env(HF_L3_KEY); 
-   const response = await fetch(
-      "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
-      {
-        headers: { 
-          Authorization: hfKey,
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
-    const result = await response.json();
+    //response = await fetch("https://opulent-potato-7v76v6gvww7q2775-8080.app.github.dev/HF")
+   response = await fetch('/HF/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    });
+    //response = await fetch("https://coach-codi.org/HF")
+
+    const responseJ = await response.json();
+   console.log("Frontend-L3 response stringified = "+ JSON.stringify(responseJ));
+   
+   //remember to return the json from the response
+   return responseJ;
+   
+  //  const response = await fetch(
+  //     "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
+  //     {
+  //       headers: { 
+  //         Authorization: hfKey,
+  //         "Content-Type": "application/json",
+  //       },
+  //       method: "POST",
+  //       body: JSON.stringify(data),
+  //     }
+  //   );
+  //   const result = await response.json();
     
-    //console.log("queryL3 result: " + result);
-    return result;
+  //   //console.log("queryL3 result: " + result);
+  //   return result;
   }
  
   

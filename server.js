@@ -76,7 +76,6 @@ app.listen(8080, () => {
 
   async function queryL3B(data) {
 	console.log("backend - queryL3B called inside.");
-    //var hfKey = "Bearer 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";
 
     const response = await fetch(
 		"https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",

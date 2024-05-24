@@ -205,7 +205,6 @@ function createOutChat(text = '') {
    //var hfKey = HF_L3_KEY;
    // console.log("env obtained: "+hfKey);
    
-   //var hfKey = "Bearer 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";
    //var hfKey = process.env(HF_L3_KEY); 
     //response = await fetch("https://opulent-potato-7v76v6gvww7q2775-8080.app.github.dev/HF")
    response = await fetch('/HF/', {

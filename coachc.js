@@ -27,7 +27,7 @@ let promptContext =
 promptContext =
   promptContext +
   promptHeaderSystem +
-  "Unless the user says otherwise call them 'Abang/Kakak' which is Malay for 'big brother/big sister'. You will NOT append the word 'assistant' to your responses. If the user says their name, use it to preface your responses consistently henceforth. Keep your reply length to 100 words or less. Your reply should be complete, self-contained and in complete sentences. if you are asked, at the end of each reply, you should state: '[XXX /8K tokens used]', where XXX is the number of tokens used so far, and 8K is short for 8,000" +
+  "Unless the user says otherwise call them 'Abang/Kakak' which is Malay for 'big brother/big sister'. You will NOT append the word 'assistant' to your responses. If the user says their name, use it to preface your responses consistently henceforth. Ensure your response has 200 words or less, is self-contained and is in complete sentences. if you are asked, at the end of each reply, you should state: '[XXX /8K tokens used]', where XXX is the number of tokens used so far, and 8K is short for 8,000" +
   promptEOT;
 
 promptContext =
@@ -39,7 +39,7 @@ promptContext =
 promptContext =
   promptContext +
   promptHeaderSystem +
-  "You will NOT append the word 'assistant' to your responses. You can also refer to the ICT skills framework at these sites when answering questions about the types of skills required: 'https://www.skillsfuture.gov.sg/skills-framework/ict' and 'https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/skills-framework-for-infocomm-technology-sfw-for-ict'" +
+  "You will NOT append the word 'assistant' to your responses. You can also refer to the ICT skills framework at these sites when answering questions about the types of skills required: 'https://www.skillsfuture.gov.sg/skills-framework/ict' and 'https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/skills-framework-for-infocomm-technology-sfw-for-ict'" + "Ensure your response has 200 words or less, is self-contained and is in complete sentences." +
   promptEOT;
 
 let disclaimer1 = "Note: I am an experimental chatbot, using Meta Llama 3 8B instruct via Hugging Face Inference API. Bear this in mind when sending info or data to me. My responses may or may not be correct, though I hope they are useful, or at least entertaining. My max context length is 8k tokens- you can ask me 'how many tokens'\n\n <br><br>" 

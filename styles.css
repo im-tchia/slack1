@@ -4,6 +4,23 @@
     font-family: 'Roboto', sans-serif;
 }
 
+
+.intro{
+    color: rgba(0, 0, 0, 0.8);
+    /* border-radius: 10px; */
+    font-size: 14px;
+    /* padding: 5px 12px 5px 12px; */
+    
+    padding: 10px;
+    text-align: left;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    /* box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px; */
+
+}
+
 /* Styling the main container */
 .container {
     width: 80%;

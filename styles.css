@@ -4,6 +4,21 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.intro-container {
+    /* height: 240px; Adjust the height as needed */
+    width: 80%;
+    /* overflow-y: auto; Enable vertical scrolling */
+    background-image: "codi.png";
+    /* background-color: #8134AF; */
+    padding: 0%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    align-self: center;
+    align-items: center;
+    margin-left: auto; /* Set left margin to auto */
+  margin-right: auto; /* Set right margin to auto */
+
+  }
 
 .intro{
     color: rgba(0, 0, 0, 0.8);
@@ -11,15 +26,16 @@
     font-size: 14px;
     /* padding: 5px 12px 5px 12px; */
     
-    padding: 10px;
+    padding: 0%;
     text-align: left;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 100%;
     /* box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px; */
 
 }
+
 
 /* Styling the main container */
 .container {

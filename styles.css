@@ -33,9 +33,22 @@
     margin-right: auto;
     width: 100%;
     /* box-shadow: rgb(0 0 0 / 25%) 0px 2px 5px 2px; */
+    opacity: 1;
+    transition: opacity 2s ease;
 
 }
 
+.fade-out .intro {
+    opacity: 0;
+  }
+  /* adjust this to determine the amount to fade up */
+  .fade-up {
+    margin-top: -25vh;
+  }
+  
+  .content {
+    /* Styles for other content */
+  }
 
 /* Styling the main container */
 .container {
@@ -44,6 +57,11 @@
     margin-top: 2rem;
     letter-spacing: 0.5px;
     height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    /* opacity: 1; /* Initially fully visible */
+    /*transition: opacity 1s ease; Smooth transition for opacity */
+  
 }
 
 img {

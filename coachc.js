@@ -51,7 +51,7 @@ let disclaimer2 = "Disclaimer: This web app is created for learning purposes onl
 
 ///////// This just initiates the conversation ///////
 var intro1 = "Hi my name is Coach Codi, a career coach. How can I help you?";
-var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :).<br> Type 'bye' or 'exit' at any time to close this session. ";
+var intro2 = "Start you query with your name e.g. 'I am Cara and I would like to find out xxxx'. If you don't want to say your name, I will just call you 'Abang/Kakak' :).<br> Type 'bye' or 'exit' at any time to close this session.<br> I will be trying to use the GROW framework to guide you towards specific actions you can take in your career. ";
 
 runningPrompt = runningPrompt + promptContext;
 
@@ -159,8 +159,10 @@ function createInChat(text = '') {
   </div>
   <div class="received-msg">
     <div class="received-msg-inbox">
-      <p>
+      <p id = "textToRead">
       ${text}
+  
+      <button onclick="speak()">SPEAK</button>
       </p>
 
       <span class="time">
@@ -171,6 +173,12 @@ function createInChat(text = '') {
 </div>
   `;
 };
+
+function speak() {
+  const text = document.getElementById('textToRead').textContent; // Use textContent to get the text content
+  const utterance = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(utterance);
+}
 
 function createOutChat(text = '') {
   var event = new Date();
@@ -195,7 +203,9 @@ function createOutChat(text = '') {
 
     //extracted: <span class="time">18:34 PM | July 24</span>
   };
+  
 
+  
 
   async function queryL3(data) {
     console.log("Frontend -queryL3 called");

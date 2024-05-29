@@ -360,3 +360,15 @@ received-chats-img {
     font-size: 16px;
   }
 
+  .speak {
+    background-color: purple; 
+    border-radius: 15%;
+    border: none;
+    color: white;
+    padding: 6px ;
+    text-align: center;
+    text-decoration: none;
+    display: inline-table;
+    font-size: 14px;
+  }
+

@@ -13,6 +13,11 @@
 //console.log(L3KEY);
 // global variable to indicate when to close session
 let closeSession = false;
+let lastCallTime = 0;
+let lastMessageTime = Date.now();
+let messageQueue = []; // Initialize message queue
+let isProcessing = false; // Flag to track if messages are being processed 
+
 
 let promptHeaderSystem = "<|start_header_id|>system<|end_header_id|>";
 let promptHeaderUser = "<|start_header_id|>user<|end_header_id|>";
@@ -68,10 +73,12 @@ runningPrompt =
   intro2 +
   promptEOT;
 
-sendAns(disclaimer1);
-sendAns(disclaimer2);
-sendAns(intro1);
-sendAns(intro2);
+//introduced async function so that initial messages are sent with 1s delay
+  sendInitialMessages();
+//   sendAnsWithDelay(disclaimer1);
+// sendAnsWithDelay(disclaimer2);
+// sendAnsWithDelay(intro1);
+// sendAnsWithDelay(intro2);
 
 /// below is to enable enter key to trigger send ///
 
@@ -98,19 +105,32 @@ buttonEntry.addEventListener("click", function(){
 
 /////////////// FUNCTIONS BELOW HERE /////////////
 
+async function sendInitialMessages() {
+  await sendAnsWithDelay(disclaimer1);
+  await sendAnsWithDelay(disclaimer2);
+  await sendAnsWithDelay(intro1);
+  await sendAnsWithDelay(intro2);
+}
+
+
 function sendAns(text = '' ){
-  createInChat(text).then(html => { 
-  // Add the generated HTML to the .msg-page element
-   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length - 1].insertAdjacentHTML("beforeend", html);
+  // createInChat(text).then(html => { 
+  // // Add the generated HTML to the .msg-page element
+  //  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length - 1].insertAdjacentHTML("beforeend", html);
 
   
-  // document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
+ document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
 
   runningPrompt = runningPrompt + promptHeaderAsst + text + promptEOT;
 
   //scroll to bottom of .msg-page id=scrollMsgPg
   document.getElementById("scrollMsgPg").scrollTop = document.getElementById("scrollMsgPg").scrollHeight;
-  });
+ // });
+}
+
+async function sendAnsWithDelay(text) {
+  await delay(1000); // Ensure at least 1-second delay
+  sendAns(text);
 }
 
 function sendAsk(text = '') {
@@ -149,18 +169,50 @@ function sendAsk(text = '') {
   //var textr = "noted."
 //  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createOutChat(textr));
 }
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-
-async function createInChat(text = '') {
-  await delay(500);
-  console.log("Delayed message after 500 milliseconds");
+function createInChat(text = '') {
+  // const currentTime = performance.now();
+  // const timeSinceLastCall = currentTime - lastCallTime;
+  // if (timeSinceLastCall < 1000) {
+  //   await delay(1000 - timeSinceLastCall);
+  // }
   
-  var event1 = new Date();
-  var eDate = Date.toString();
+  // const startTime = performance.now();
+  // await delay(1000); // Ensure at least 1-second delay
+  // const endTime = performance.now();
+  // console.log("Actual delay: " + (endTime - startTime) + " milliseconds");
+  // console.log("Delayed message after 1000 milliseconds");
+
+  
+  // var event1 = new Date();
+  
+  //var eDate = Date.toString();
   //var eTime = Date.toTimeString();
   //var timestamp = eTime + " | " + eDate;
-  var timestamp = event1;
+  // var timestamp = event1.toISOString();
+  // await delay(2000);
+  // const timestamp = await generateTimestamp();
+  const currentTime = Date.now(); // Get the current time
+
+  const timeElapsed = currentTime - lastMessageTime; // Calculate time elapsed since last message
+  const delayTime = Math.max(2000 - timeElapsed, 0); // Calculate delay time
+
+  //delay(delayTime); // Delay for the calculated time
+
+  //const timestamp = new Date().toISOString(); // 
+  const timestamp = new Date();
+  //Generate timestamp
+  lastMessageTime = currentTime; // Update last message time
   
+  console.log("timestamp = "+timestamp);
+  //lastCallTime = currentTime;
+
+// Process the next message in the queue
+// await processMessageQueue();
+
   return`
   <div class="received-chats">
   <div class="recevied-chats-img">
@@ -170,8 +222,13 @@ async function createInChat(text = '') {
     <div class="received-msg-inbox">
       <p id = "textToRead_${timestamp}">
       ${text}
-  
-      <button onclick="speak('${timestamp}')">SPEAK</button>
+     
+      
+      <button class= "speak" onclick="speak('${timestamp}')">
+      <i class="bi bi-volume-up-fill"></i>
+      <!--SPEAK-->
+      </button>
+      
       </p>
 
       <span class="time">
@@ -181,11 +238,11 @@ async function createInChat(text = '') {
   </div>
 </div>
   `;
+
+  
 };
 
-async function delay(ms) {
-  await new Promise(resolve => setTimeout(resolve, ms));
-}
+
 
 function speak(timestamp) {
     console.log("timestamp = "+timestamp);
@@ -196,7 +253,8 @@ function speak(timestamp) {
 
   console.log('textToRead_${timestamp}');
     
-  const utterance = new SpeechSynthesisUtterance(text);
+  const utterance = new   SpeechSynthesisUtterance(text);
+  utterance.rate = 1.3
   speechSynthesis.speak(utterance);
 }
 

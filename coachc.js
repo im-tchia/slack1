@@ -99,12 +99,18 @@ buttonEntry.addEventListener("click", function(){
 /////////////// FUNCTIONS BELOW HERE /////////////
 
 function sendAns(text = '' ){
-  document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
+  createInChat(text).then(html => { 
+  // Add the generated HTML to the .msg-page element
+   document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length - 1].insertAdjacentHTML("beforeend", html);
+
+  
+  // document.getElementsByClassName("msg-page")[document.getElementsByClassName("msg-page").length-1].insertAdjacentHTML("beforeend",createInChat(text));
 
   runningPrompt = runningPrompt + promptHeaderAsst + text + promptEOT;
 
   //scroll to bottom of .msg-page id=scrollMsgPg
   document.getElementById("scrollMsgPg").scrollTop = document.getElementById("scrollMsgPg").scrollHeight;
+  });
 }
 
 function sendAsk(text = '') {
@@ -145,13 +151,16 @@ function sendAsk(text = '') {
 }
 
 
-function createInChat(text = '') {
-  var event = new Date();
-  var eDate = Date.toString()
+async function createInChat(text = '') {
+  await delay(500);
+  console.log("Delayed message after 500 milliseconds");
+  
+  var event1 = new Date();
+  var eDate = Date.toString();
   //var eTime = Date.toTimeString();
-  var timestamp = event;
   //var timestamp = eTime + " | " + eDate;
-
+  var timestamp = event1;
+  
   return`
   <div class="received-chats">
   <div class="recevied-chats-img">
@@ -159,10 +168,10 @@ function createInChat(text = '') {
   </div>
   <div class="received-msg">
     <div class="received-msg-inbox">
-      <p id = "textToRead">
+      <p id = "textToRead_${timestamp}">
       ${text}
   
-      <button onclick="speak()">SPEAK</button>
+      <button onclick="speak('${timestamp}')">SPEAK</button>
       </p>
 
       <span class="time">
@@ -174,8 +183,19 @@ function createInChat(text = '') {
   `;
 };
 
-function speak() {
-  const text = document.getElementById('textToRead').textContent; // Use textContent to get the text content
+async function delay(ms) {
+  await new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function speak(timestamp) {
+    console.log("timestamp = "+timestamp);
+    var reference = "textToRead_"+timestamp;
+  const text = document.getElementById("textToRead_"+timestamp).textContent;
+  console.log('text = ' +text);
+
+
+  console.log('textToRead_${timestamp}');
+    
   const utterance = new SpeechSynthesisUtterance(text);
   speechSynthesis.speak(utterance);
 }

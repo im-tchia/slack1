@@ -1,6 +1,17 @@
 // Needed for dotenv
 require("dotenv").config();
 
+//needed for Chat GPT. can remove if not used. added 15 Jul
+const { Configuration, OpenAIApi } = require("openai");
+/*require('dotenv').config()*/
+
+const configuration = new Configuration({
+  //apiKey: process.env.OPENAI_API_KEY,
+	apiKey: "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"
+});
+const openai = new OpenAIApi(configuration);
+
+// something else
 const { log } = require("console");
 // Needed for Express
 var express = require('express');
@@ -76,7 +87,16 @@ app.listen(8080, () => {
 
   async function queryL3B(data) {
 	console.log("backend - queryL3B called inside.");
-
+//chatgpt bit
+	const completion = await openai.createCompletion({
+    		model: "text-davinci-003",
+    		prompt: JSON.stringify(data),
+    		max_tokens:4000
+    		});
+	  result=completion.data.choices[0].text
+    //console.log(completion.data.choices[0].text);
+	  //end of chatgpt
+    /* Edited out 15 Jul 2025 to try chatGPT
     const response = await fetch(
 		"https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
         {
@@ -91,5 +111,6 @@ app.listen(8080, () => {
 	);
 	const result = await response.json();
 	console.log("backend - queryL3B result = "+JSON.stringify(result));
+ */
     return result;
     }

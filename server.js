@@ -3,15 +3,15 @@ require("dotenv").config();
 //testing for where the console appears
 console.log("starting up server.js");
 //needed for Chat GPT. can remove if not used. added 15 Jul
-const { Configuration, OpenAIApi } = require("openai");
+//const { Configuration, OpenAIApi } = require("openai");
 /*require('dotenv').config()*/
-console.log("moving to configuration");
-const configuration = new Configuration({
-  	apiKey: process.env.OPENAI_API_KEY,
-});
-console.log("API key succesfullly accessed");
+//console.log("moving to configuration");
+//const configuration = new Configuration({
+//  	apiKey: process.env.OPENAI_API_KEY,
+//});
+//console.log("API key succesfullly accessed");
 
-const openai = new OpenAIApi(configuration);
+//const openai = new OpenAIApi(configuration);
 
 // something else
 const { log } = require("console");
@@ -90,12 +90,31 @@ app.listen(8080, () => {
   async function queryL3B(data) {
 	console.log("backend - queryL3B called inside.");
 //chatgpt bit
-	const completion = await openai.createCompletion({
+// new code using chatgpt
+const apiKey = process.env.OPENAI_API_KEY,; // Replace with your actual API key
+const response = await fetch('https://api.openai.com/v1/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'text-davinci-003',
+      prompt: JSON.stringify(data),
+      max_tokens: 4000,
+    }),
+  });
+
+  const completion = await response.json();
+  const result = completion.choices[0].text;
+	  
+	  /*const completion = await openai.createCompletion({
     		model: "text-davinci-003",
     		prompt: JSON.stringify(data),
     		max_tokens:4000
     		});
-	  result=completion.data.choices[0].text
+	  result=completion.data.choices[0].text */
+	  
     //console.log(completion.data.choices[0].text);
 	  //end of chatgpt
     /* Edited out 15 Jul 2025 to try chatGPT

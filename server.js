@@ -107,10 +107,13 @@ app.listen(8080, () => {
     				}),
   		});
 //console.log("response function initialised");
-
+ if (!response.ok) {
+      const errorText = await response.text();
+      return res.status(response.status).json({ error: errorText });
+    }
   	const completion = await response.json();
 	//console.log("result: " +completion.choices[0].text);
-  	const result = completion.text;
+  	const result = completion.choices[0].text;
 
 	  
 	  //const result = completion.choices[0].text;

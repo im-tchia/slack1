@@ -92,30 +92,41 @@ app.listen(8080, () => {
 //chatgpt bit
 // new code using chatgpt
 	const apiKey = process.env.OPENAI_API_KEY; // Replace with your actual API key
+	if (!apiKey) {
+    		throw new Error("OPENAI_API_KEY is not defined");
+  	}
 	console.log("API Key initialised");
 
+	const body = {
+	    model: "gpt-4",
+	    messages: [
+	      {
+	        role: "user",
+	        content: typeof data === "string" ? data : JSON.stringify(data, null, 2),
+	      }
+	    ],
+	    max_tokens: 1000,
+	    temperature: 0.7,
+	  };
+	  
 	const response = await fetch('https://api.openai.com/v1/completions', {
     		method: 'POST',
     		headers: {
-      			'Content-Type': 'application/json',
-      			'Authorization': `Bearer ${apiKey}`,
-    			},
-    		body: JSON.stringify({
-      				model: 'text-davinci-003',
-      				prompt: JSON.stringify(data),
-      				max_tokens: 4000,
-    				}),
-  		});
+      			"Content-Type": "application/json",
+      			"Authorization": `Bearer ${apiKey}`,
+    		},
+    		body: JSON.stringify(body),
+  	});
 //console.log("response function initialised");
- if (!response.ok) {
-      const errorText = await response.text();
-      return res.status(response.status).json({ error: errorText });
-    }
+ 	if (!response.ok) {
+      		const errorText = await response.text();
+      		throw new Error(`OpenAI API Error (${response.status}): ${errorText}`);
+  	}
+	
   	const completion = await response.json();
 	//console.log("result: " +completion.choices[0].text);
-  	const result = completion.choices[0].text;
+  	const result = completion.choices[0].message.content;
 
-	  
 	  //const result = completion.choices[0].text;
 	  
 	  /*const completion = await openai.createCompletion({

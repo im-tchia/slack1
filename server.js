@@ -109,8 +109,11 @@ app.listen(8080, () => {
 //console.log("response function initialised");
 
   	const completion = await response.json();
-	console.log("result: " +completion.choices[0].text);
-  	const result = completion.choices[0].text;
+	//console.log("result: " +completion.choices[0].text);
+  	const result = completion.text;
+
+	  
+	  //const result = completion.choices[0].text;
 	  
 	  /*const completion = await openai.createCompletion({
     		model: "text-davinci-003",

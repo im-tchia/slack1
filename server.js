@@ -91,24 +91,26 @@ app.listen(8080, () => {
 	console.log("backend - queryL3B called inside.");
 //chatgpt bit
 // new code using chatgpt
-const apiKey = process.env.OPENAI_API_KEY; // Replace with your actual API key
-	  console.log("API Key initialised");
-const response = await fetch('https://api.openai.com/v1/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${apiKey}',
-    },
-    body: JSON.stringify({
-      model: 'text-davinci-003',
-      prompt: JSON.stringify(data),
-      max_tokens: 4000,
-    }),
-  });
-console.log("response function initialised");
+	const apiKey = process.env.OPENAI_API_KEY; // Replace with your actual API key
+	console.log("API Key initialised");
 
-  const completion = await response.json();
-  const result = completion.choices[0].text;
+	const response = await fetch('https://api.openai.com/v1/completions', {
+    		method: 'POST',
+    		headers: {
+      			'Content-Type': 'application/json',
+      			'Authorization': 'Bearer ${apiKey}',
+    			},
+    		body: JSON.stringify({
+      				model: 'text-davinci-003',
+      				prompt: JSON.stringify(data),
+      				max_tokens: 4000,
+    				}),
+  		});
+//console.log("response function initialised");
+
+  	const completion = await response.json();
+	console.log(completion.choices.text);
+  	const result = completion.choices[0].text;
 	  
 	  /*const completion = await openai.createCompletion({
     		model: "text-davinci-003",

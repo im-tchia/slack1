@@ -91,7 +91,7 @@ app.listen(8080, () => {
 	console.log("backend - queryL3B called inside.");
 //chatgpt bit
 // new code using chatgpt
-const apiKey = process.env.OPENAI_API_KEY,; // Replace with your actual API key
+const apiKey = process.env.OPENAI_API_KEY; // Replace with your actual API key
 const response = await fetch('https://api.openai.com/v1/completions', {
     method: 'POST',
     headers: {

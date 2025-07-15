@@ -92,11 +92,12 @@ app.listen(8080, () => {
 //chatgpt bit
 // new code using chatgpt
 const apiKey = process.env.OPENAI_API_KEY; // Replace with your actual API key
+	  console.log("API Key initialised");
 const response = await fetch('https://api.openai.com/v1/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
+      'Authorization': 'Bearer ${apiKey}',
     },
     body: JSON.stringify({
       model: 'text-davinci-003',
@@ -104,6 +105,7 @@ const response = await fetch('https://api.openai.com/v1/completions', {
       max_tokens: 4000,
     }),
   });
+console.log("response function initialised");
 
   const completion = await response.json();
   const result = completion.choices[0].text;

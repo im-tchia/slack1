@@ -109,7 +109,7 @@ app.listen(8080, () => {
 //console.log("response function initialised");
 
   	const completion = await response.json();
-	console.log(completion.choices.text);
+	console.log(completion.choices[1].text);
   	const result = completion.choices[0].text;
 	  
 	  /*const completion = await openai.createCompletion({

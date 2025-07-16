@@ -120,7 +120,7 @@ app.listen(8080, () => {
   	});*/
 
 const response = await fetch(
-      "https://api.openai.com/v1/completions",
+      "https://api.openai.com/v1/chat/completions",
       {
         method: "POST",
         headers: {
@@ -128,7 +128,7 @@ const response = await fetch(
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "text-davinci-003", // or another completions model
+          model: "gpt-4", // or another completions model
           prompt:   JSON.stringify(data),      
           max_tokens: 1000,
           temperature: 0.7,

@@ -145,7 +145,7 @@ const response = await fetch(
 	
   	const completion = await response.json();
 	//console.log("result: " +completion.choices[0].text);
-  	const result = completion.choices[0].text;
+  	const result = completion.choices[0].message.content;
 
 	  //const result = completion.choices[0].text;
 	  

@@ -161,10 +161,6 @@ function sendAsk(text = '') {
       // const StringRespons = JSON.stringify(response)
     console.log("response = " + StringResponse);
 
-    .catch((error) => {
-    console.error("Error occurred:", error);
-    });
-
     // for JSON ->
     //    var rawReply = response[0].generated_text;
      var rawReply = StringResponse;

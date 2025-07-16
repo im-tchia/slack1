@@ -97,7 +97,7 @@ app.listen(8080, () => {
   	}
 	console.log("API Key initialised");
 
-	const body = {
+	/*const body = {
 	    model: "gpt-4",
 	    messages: [
 	      {
@@ -117,7 +117,26 @@ app.listen(8080, () => {
       			"Authorization": `Bearer ${apiKey}`,
     		},
     		body: JSON.stringify(body),
-  	});
+  	});*/
+
+const response = await fetch(
+      "https://api.openai.com/v1/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "text-davinci-003", // or another completions model
+          prompt:   JSON.stringify(data),      
+          max_tokens: 1000,
+          temperature: 0.7,
+        }),
+      }
+    );
+
+	  
 //console.log("response function initialised");
  	if (!response.ok) {
       		const errorText = await response.text();
@@ -126,7 +145,7 @@ app.listen(8080, () => {
 	
   	const completion = await response.json();
 	//console.log("result: " +completion.choices[0].text);
-  	const result = completion.choices[0].message.content;
+  	const result = completion.choices[0].text;
 
 	  //const result = completion.choices[0].text;
 	  

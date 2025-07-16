@@ -154,8 +154,15 @@ function sendAsk(text = '') {
   console.log("sending this prompt: " +runningPrompt);
   queryL3({"inputs" : runningPrompt}).then((response) => 
     {
-    console.log("response = " + JSON.stringify(response));
-    var rawReply = response[0].generated_text;
+    const StringResponse = response
+      // or for JSON
+      // const StringRespons = JSON.stringify(response)
+    console.log("response = " + StringResponse);
+
+    // for JSON ->
+    //    var rawReply = response[0].generated_text;
+     var rawReply = StringResponse;
+      
     console.log("answer = "+rawReply.split(runningPrompt)[1]);
     sendAns(rawReply.split(runningPrompt)[1]);
     //sendAns(response[0].generated_text.split("|reply|")[2])
@@ -305,8 +312,9 @@ function createOutChat(text = '') {
     //response = await fetch("https://coach-codi.org/HF")
 
 /*    const responseJ = await response.json();*/
-  const responseJ = response.text(); // or response.json()
-   console.log("Frontend-L3 response stringified = "+ JSON.stringify(responseJ));
+  const responseJ = await response.text(); // or response.json()
+ console.log("Frontend-L3 response = " + responseJ);
+    //  console.log("Frontend-L3 response stringified = "+ JSON.stringify(responseJ));
    
    //remember to return the json from the response
    return responseJ;

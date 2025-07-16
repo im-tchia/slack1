@@ -102,7 +102,8 @@ app.listen(8080, () => {
 	    messages: [
 	      {
 	        role: "user",
-	        content: typeof data === "string" ? data : JSON.stringify(data, null, 2),
+	        prompt: JSON.stringify(data),
+		content: typeof data === "string" ? data : JSON.stringify(data, null, 2),
 	      }
 	    ],
 	    max_tokens: 1000,

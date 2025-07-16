@@ -128,11 +128,16 @@ const response = await fetch(
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-4", // or another completions model
-          prompt:   JSON.stringify(data),      
-          max_tokens: 1000,
-          temperature: 0.7,
-        }),
+  		model: "gpt-4",
+  		messages: [
+    		{
+      			role: "user",
+      			content: typeof data === "string" ? data : JSON.stringify(data),
+    		}
+  		],
+  		max_tokens: 1000,
+  		temperature: 0.7,
+	})
       }
     );
 

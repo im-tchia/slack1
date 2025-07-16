@@ -304,7 +304,8 @@ function createOutChat(text = '') {
     });
     //response = await fetch("https://coach-codi.org/HF")
 
-    const responseJ = await response.json();
+/*    const responseJ = await response.json();*/
+  const responseJ = response.text(); // or response.json()
    console.log("Frontend-L3 response stringified = "+ JSON.stringify(responseJ));
    
    //remember to return the json from the response

@@ -168,9 +168,11 @@ function sendAsk(text = '') {
     // for JSON ->
     //    var rawReply = response[0].generated_text;
      var rawReply = StringResponse;
-      
-    console.log("answer = "+rawReply.split(runningPrompt)[1]);
-    sendAns(rawReply.split(runningPrompt)[1]);
+
+  console.log("answer = "+ rawReply);
+  //  console.log("answer = "+rawReply.split(runningPrompt)[1]);
+  sendAns(rawReply);  
+  //sendAns(rawReply.split(runningPrompt)[1]);
     //sendAns(response[0].generated_text.split("|reply|")[2])
     //sendAns(response[0].generated_text.substring(len(text),len(response[0].generated_text)));
     document.getElementById("website-input").value= "";
